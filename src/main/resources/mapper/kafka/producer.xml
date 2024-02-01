@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="producer">
+    <insert id="messageSendResultLog" parameterType="co.kr.kafkastudy.model.kafka.producer.MessageSendResult">
+        INSERT INTO message_send_result_log (
+            TOPIC_NAME
+         , `PARTITION`
+         , OFFSET
+         , HAS_OFFSET
+         , `TIMESTAMP`
+         , HAS_TIMESTAMP
+         , STATUS_CODE
+         , ERROR_LOG
+        ) values (
+           #{topicName}
+         , #{partition}
+         , #{offset}
+         , #{hasOffset}
+         , #{timestamp}
+         , #{hasTimestamp}
+         , #{statusCode}
+         , #{errorLog}
+        )
+    </insert>
+</mapper>

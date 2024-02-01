@@ -1,0 +1,38 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 60000
+
+data-directory-path: c://kafka/data/
+fin-data-directory-path: c://kafka/fin/
+fail-data-directory-path: c://kafka/fail/
+
+spring:
+  config:
+    activate:
+      on-profile: local
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mine
+    username: root
+    password: test1234!test
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+    #      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.JsonSerializer
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: consumer-group-song-1
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+
+
+

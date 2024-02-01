@@ -1,0 +1,8 @@
+spring:
+  profiles: # profiles 설정
+    active: local # 다른 설정이 없을 때 default 환경 값
+mybatis:
+  mapper-locations: classpath*:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    jdbc-type-for-null: NULL
