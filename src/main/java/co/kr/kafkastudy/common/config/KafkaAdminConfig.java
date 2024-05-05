@@ -1,5 +1,6 @@
 package co.kr.kafkastudy.common.config;
 
+import co.kr.kafkastudy.constant.KafkaConstant;
 import jakarta.annotation.PostConstruct;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.AdminClientConfig;
@@ -19,8 +20,6 @@ public class KafkaAdminConfig {
     @Value("${spring.kafka.producer.bootstrap-servers}")
     private String bootstrapAddress;
 
-    @Value("")
-    private String DEFALUT_TOPIC;
 
     @Bean
     public KafkaAdmin kafkaAdmin() {
@@ -36,10 +35,11 @@ public class KafkaAdminConfig {
         return AdminClient.create(kafkaAdmin().getConfigurationProperties());
     }
 
-    private NewTopic defaultTopic() {
-        return TopicBuilder.name(DEFALUT_TOPIC)
+    @Bean
+    public NewTopic defaultTopic() {
+        return TopicBuilder.name(KafkaConstant.DEFAULT_TOPIC)
                 .partitions(3) //파티션수
-                .replicas(3) //복제 개수
+                .replicas(1) //복제 개수
                 .build();
     }
 }

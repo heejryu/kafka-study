@@ -4,9 +4,9 @@ server:
     session:
       timeout: 60000
 
-data-directory-path: c://kafka/data/
-fin-data-directory-path: c://kafka/fin/
-fail-data-directory-path: c://kafka/fail/
+data-directory-path: /Users/ryuhee/Desktop/dev/kafka/data/
+fin-data-directory-path: /Users/ryuhee/Desktop/dev/kafka/fin/
+fail-data-directory-path: /Users/ryuhee/Desktop/dev/kafka/fail/
 
 spring:
   config:
@@ -20,7 +20,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mine
     username: root
-    password: test1234!test
+    password: rootpwd
   kafka:
     producer:
       bootstrap-servers: localhost:9092
@@ -28,7 +28,7 @@ spring:
 #      value-serializer: org.apache.kafka.common.serialization.JsonSerializer
     consumer:
       bootstrap-servers: localhost:9092
-      group-id: consumer-group-song-1
+      group-id: group-song
       auto-offset-reset: latest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer

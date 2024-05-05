@@ -19,6 +19,16 @@ public class KafkaProducerComponent {
     }
 
     public void sendMessage(ProducerRecord<String,Object> producerRecord) {
+
         CompletableFuture<SendResult<String, Object>> future = kafkaTemplate.send(producerRecord);
+
+        future.whenComplete((result, ex) -> {
+            if (ex == null) {
+//                handleSuccess(producerRecord);
+            }
+            else {
+//                handleFailure(producerRecord, ex);
+            }
+        });
     }
 }

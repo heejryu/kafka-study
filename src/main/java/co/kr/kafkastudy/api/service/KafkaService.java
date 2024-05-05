@@ -29,29 +29,35 @@ public class KafkaService {
     @Autowired
     private DateUtils dateUtils;
 
-    @Transactional
-    public void sendSongMessage(String filePath, String fileName) throws Exception{
+    public void sendSongMessage(String filePath, String fileName) {
         File dataFile = new File(filePath+fileName);
         ObjectMapper objectMapper = new ObjectMapper();
-        Song song = objectMapper.readValue(dataFile, Song.class);
-        String song_name = fileName.substring(0,fileName.indexOf("."));
 
-        for (int i = 0; i < song.getVerse().size(); i++) {
-            SongVerse verse = song.getVerse().get(i);
+        try {
+            Song song = objectMapper.readValue(dataFile, Song.class);
+            String song_name = fileName.substring(0,fileName.indexOf("."));
 
-            for (int k = 0; k < verse.getLyrics().size(); k++) {
-                SongSend songSend = new SongSend();
-                songSend.setSongName(song_name);
-                songSend.setVerse(i+1);
-                songSend.setLyrics(verse.getLyrics().get(k));
-                songSend.setLine(k);
-                songSend.setIsEnd(k == verse.getLyrics().size() - 1);
+            for (int i = 0; i < song.getVerse().size(); i++) {
+                SongVerse verse = song.getVerse().get(i);
 
-                ProducerRecord<String, Object> producerRecord
-                        = new ProducerRecord<>(KafkaConstant.DEFAULT_TOPIC, i, "verse"+i+"-"+songSend.getLine(), songSend);
-                kafkaProducerComponent.sendMessage(producerRecord);
+                for (int k = 0; k < verse.getLyrics().size(); k++) {
+                    SongSend songSend = new SongSend();
+                    songSend.setSongName(song_name);
+                    songSend.setVerse(i+1);
+                    songSend.setLyrics(verse.getLyrics().get(k));
+                    songSend.setLine(k);
+                    songSend.setIsEnd(k == verse.getLyrics().size() - 1);
+
+                    ProducerRecord<String, Object> producerRecord
+                            = new ProducerRecord<>(KafkaConstant.DEFAULT_TOPIC, i, "verse"+i, songSend);
+                    kafkaProducerComponent.sendMessage(producerRecord);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+
     }
 
 

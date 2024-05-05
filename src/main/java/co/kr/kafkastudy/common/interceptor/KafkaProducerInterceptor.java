@@ -52,7 +52,6 @@ public class KafkaProducerInterceptor implements ProducerInterceptor<String, Obj
                 ,metadata.hasTimestamp()
         );
 
-
         if (exception != null) {
             log.error("[MESSAGE AfterSend] exception :"+ exception);
             messageSendResult.setStatusCode(KafkaConstant.PRODUCER_MESSAGE_SEND_FAIL);
